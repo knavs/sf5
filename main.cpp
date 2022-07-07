@@ -1,18 +1,18 @@
-#include "VendingMachine.h"
+#include "vendingmachine.h"
 
 int main() {
     setlocale(LC_ALL, "");
 
-    Snack *bounty = new Snack("Bounty", 50.02);
-    Snack *snickers = new Snack("Snickers");
-    Snack *gematogen = new Snack("Гематоген");
-    Snack *mishka = new Snack("Мишка на севере");
-    Snack *step = new Snack("Степ");
-    Snack *vobla = new Snack("Вобла");
-    Snack *suhariki = new Snack("3 корочки");
+    auto bounty = new Snack("Bounty", 50.02);
+    auto snickers = new Snack("Snickers");
+    auto gematogen = new Snack("Гематоген");
+    auto mishka = new Snack("Мишка на севере");
+    auto step = new Snack("Степ");
+    auto vobla = new Snack("Вобла");
+    auto suhariki = new Snack("3 корочки");
 
-    SnackSlot *slot = new SnackSlot(4 );// 4- количество батончиков, которые помещаются в слот
-    SnackSlot *slot2 = new SnackSlot(5 );// 5- количество батончиков, которые помещаются в слот
+    auto slot = new SnackSlot(4 );// 4- количество батончиков, которые помещаются в слот
+    auto slot2 = new SnackSlot(5 );// 5- количество батончиков, которые помещаются в слот
 
     slot->addSnack(bounty); //Добавляем батончик в слот
     slot->addSnack(snickers);
@@ -25,7 +25,7 @@ int main() {
     slot2->addSnack(bounty);
 
     int slotCount = 5;  //slotCount - Количество слотов для снеков
-    VendingMachine* machine = new VendingMachine(slotCount);  //slotCount - Количество слотов для снеков
+    auto machine = new VendingMachine(slotCount);  //slotCount - Количество слотов для снеков
     machine->addSlot(slot); // Помещаем слот обратно в аппарат
     machine->addSlot(slot2); // Помещаем слот обратно в аппарат
 
@@ -40,13 +40,13 @@ int main() {
 
     slot2->buySnack(mishka);
 
-    suhariki->name = "Емеля";//
+    suhariki->getName() = "Емеля";//
 
 
     // Проверяем получилось ли заменить Snack  в слот 2
     std::cout << machine;
 
-    std::cout << random_snack->name;
+    std::cout << random_snack->getName();
 
 
     // Вопрос: А можно как-то покороче ??
