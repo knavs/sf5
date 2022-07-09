@@ -37,8 +37,6 @@ int main() {
 
     slot2->buySnack(mishka);
 
-    suhariki->getName() = "Емеля";//
-
     // Проверяем получилось ли заменить Snack  в слот 2
     std::cout << machine;
     std::cout << random_snack->getName();
