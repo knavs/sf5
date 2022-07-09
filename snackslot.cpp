@@ -1,7 +1,7 @@
 #include "snackslot.h"
 /**
  *
- * @class SnakSlot
+ * @class SnackSlot
  *
  */
 
@@ -30,40 +30,41 @@ void SnackSlot::addSnack(Snack *snack) {
     ++snack_count;
 }
 
+Snack* SnackSlot::getSnack(int idx) {
+    return container[idx];
+}
+
+void SnackSlot::setSnack(int idx, Snack* asnack) {
+    container[idx] = asnack;
+}
+
 void SnackSlot::_reallocate_container() {
-    printf("\n__reallocate_container[%d -> %d](%d placed)\n", slot_capacity/2, slot_capacity, snack_count);
+    //printf("\n__reallocate_container[%d -> %d](%d placed)\n", slot_capacity/2, slot_capacity, snack_count);
     Snack ** big_container = new Snack*[slot_capacity];
     for (int i = 0; i < snack_count; i++) {
         big_container[i] = container[i];        // копируем указатели в  новый массив
-        //delete container[i];
     }
-
-
-    // элементы не удаляем!!! т.к. они будут скопированы в container и будут потом очищены в дестркуторе
-    //for (int i = 0; i < snack_count; i++) delete container[i];
-    delete [] container; // убрал лишнюю звездочку
-
+    delete [] container;                        // очищаем старый динамический массив
     container = big_container;
 }
 
 
 std::string SnackSlot::getFormatedPriceAt(int position) const {
-    char str_buffer[6];
-    // как-то не по c++
-    std::sprintf(str_buffer, "%0.2f", container[position]->getPrice());
-    return  str_buffer;
+    std::stringstream ss;
+    ss << std::setprecision(2) << container[position]->getPrice();
+    return  ss.str();
 }
 
 
-std::string SnackSlot::getSnackAt(int position) const {
+std::string SnackSlot::getSnackNameAt(int position) const {
     if ((position >= 0 && position < snack_count)) {
         if (container[position]->getName().empty()) {
-            return "продано";
+            return "sold out";
         } else {
-            return container[position]->getName()+ " " + this->getFormatedPriceAt(position) +" руб.";
+            return container[position]->getName()+ " " + this->getFormatedPriceAt(position) +" RUR";
         }
     } else if (position >= snack_count && position < slot_capacity) {
-        return std::string("свободно");
+        return std::string("free");
     } else {
         return std::string("");     // типа ошибка. возвращаем пустое значение
     }
@@ -108,7 +109,7 @@ std::ostream&  operator<<(std::ostream& ostr, const SnackSlot *rhs) {
     ostr << "Slot("<< rhs->slot_capacity <<") -> [";
     for (int i = 0; i < rhs->slot_capacity; i++) {
         ostr << (i == 0 ? "" : ", ")
-             << i << ": " << rhs->getSnackAt(i);
+             << i << ": " << rhs->getSnackNameAt(i);
     }
 
     ostr << "]";

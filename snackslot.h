@@ -1,6 +1,8 @@
 #ifndef SNACKSLOT_H
 #define SNACKSLOT_H
 #include <iostream>
+#include <sstream>
+#include <iomanip>
 #include "snack.h"
 
 class SnackSlot {
@@ -9,7 +11,9 @@ public:
     void addSnack(Snack*);
     void buySnack(Snack*);
     void buySnack(int);
-    std::string getSnackAt(int) const;
+    Snack* getSnack(int);
+    std::string getSnackNameAt(int position) const;
+    void setSnack(int, Snack*);
     Snack*& at(int index);
     Snack*& operator[](int index);
     friend std::ostream& operator<<(std::ostream&, const SnackSlot*);

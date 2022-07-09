@@ -33,7 +33,7 @@ void VendingMachine::addSlot(SnackSlot *slot) {
         this->slots[slot_count] = slot;
         this->slot_count++;
     } else {
-        std::cout << "сорян. нет места"; // ничего не делаемы
+        std::cout << "no space available. sorry"; // ничего не делаемы
     }
 }
 
@@ -55,7 +55,7 @@ std::ostream& operator<<(std::ostream& ostr, const VendingMachine *rhs) {
         if (rhs->isEmptySlot(i))
             ostr << rhs->slots[i] << std::endl;
         else
-            ostr << "свободно" << std::endl;
+            ostr << "free" << std::endl;
     }
     ostr << "  }" <<std::endl;
     return ostr;
