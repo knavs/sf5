@@ -19,8 +19,8 @@ public:
     friend std::ostream& operator<<(std::ostream&, const SnackSlot*);
     ~SnackSlot();
 private:
-    void _allocate_container(int, bool);
-    void _reallocate_container();
+    void reallocateContainer();
+
     std::string getFormatedPriceAt(int) const;
     int snack_count;
     int slot_capacity;

@@ -15,7 +15,7 @@ SnackSlot::SnackSlot(int slot_capacity) {
 SnackSlot::~SnackSlot() {
     std::cout << "~SnackSlot" << std::endl;
     for (int i = 0; i < snack_count; i++) delete container[i];
-    delete [] container; // убрал лишнюю звездочку ВЫЛЕТАЕТ НА SEGFAULT с этой строчкой
+    delete[] container;
 }
 
 
@@ -23,7 +23,7 @@ void SnackSlot::addSnack(Snack *snack) {
 
     if (snack_count >= slot_capacity) {         // новый не влезает. надо менять размер слота
         slot_capacity *= 2;                     // увеличиваем сразу в 2 раза.
-        _reallocate_container();
+        reallocateContainer();
     }
 
     container[snack_count] = new Snack(*snack);
@@ -38,13 +38,12 @@ void SnackSlot::setSnack(int idx, Snack* asnack) {
     container[idx] = asnack;
 }
 
-void SnackSlot::_reallocate_container() {
-    //printf("\n__reallocate_container[%d -> %d](%d placed)\n", slot_capacity/2, slot_capacity, snack_count);
-    Snack ** big_container = new Snack*[slot_capacity];
+void SnackSlot::reallocateContainer() {
+    Snack **big_container = new Snack *[slot_capacity];
     for (int i = 0; i < snack_count; i++) {
         big_container[i] = container[i];        // копируем указатели в  новый массив
     }
-    delete [] container;                        // очищаем старый динамический массив
+    delete[] container;                        // очищаем старый динамический массив. указатели будут удалены в деструкторе
     container = big_container;
 }
 
